@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Chemistries;
 use Illuminate\Http\Request;
 use App\Models\Scholarship;
-use App\Models\Chemistry;
 use App\Models\Cashier;
 use App\Models\Metrologies;
 use App\Models\Halal;
@@ -13,19 +12,98 @@ use App\Models\Shelflife;
 
 class QController extends Controller
 {
+
+    public function check_PrioStat($model){
+        $ambot=$model::select('priorityStatus')->whereIn('priorityStatus',['Pregnant','PWD','Elderly'])->get();
+        return $ambot;
+    }
     public function all_client(){
-        $sch_reserve = Scholarship::where('status','Reserve')->first();
+       // $sch_reserve = Scholarship::where('status','Reserve')->orwhere('priorityStatus','Pregnant')->first();
+       //Code for getting the client with client type eg. pregnant etc
+    $sch_reserve=[];
+        $ps = Scholarship::select('priorityStatus')->whereIn('priorityStatus',['Pregnant','PWD','Elderly'])->first();
+        if($ps != null){
+        $sch_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')
+        ->whereIn('priorityStatus',['Pregnant','PWD','Elderly']);
+        })->first();
+    }else{
+        $sch_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')->first();
+        })->first();
+    }
         $sch_serve = Scholarship::where('status','Serving')->first();
-        $chm_reserve = Chemistries::where('status','Reserve')->first();
+
+    $chm_reserve=[];
+        $ps = Scholarship::select('priorityStatus')->whereIn('priorityStatus',['Pregnant','PWD','Elderly'])->first();
+        if($ps != null){
+        $chm_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')
+        ->whereIn('priorityStatus',['Pregnant','PWD','Elderly']);
+        })->first();
+    }else{
+        $chm_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')->first();
+        })->first();
+    }
         $chm_serve = Chemistries::where('status','Serving')->first();
-        $shl_reserve = Shelflife::where('status','Reserve')->first();
+
+        $shl_reserve=[];
+        $ps = Scholarship::select('priorityStatus')->whereIn('priorityStatus',['Pregnant','PWD','Elderly'])->first();
+        if($ps != null){
+        $shl_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')
+        ->whereIn('priorityStatus',['Pregnant','PWD','Elderly']);
+        })->first();
+    }else{
+        $shl_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')->first();
+        })->first();
+    }
         $shl_serve = Shelflife::where('status','Serving')->first();
-        $mtr_reserve = Metrologies::where('status','Reserve')->first();
+
+        $mtr_reserve=[];
+        $ps = Scholarship::select('priorityStatus')->whereIn('priorityStatus',['Pregnant','PWD','Elderly'])->first();
+        if($ps != null){
+        $mtr_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')
+        ->whereIn('priorityStatus',['Pregnant','PWD','Elderly']);
+        })->first();
+    }else{
+        $mtr_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')->first();
+        })->first();
+    }
         $mtr_serve = Metrologies::where('status','Serving')->first();
-        $chr_reserve = Cashier::where('status','Reserve')->first();
+        
+        $chr_reserve=[];
+        $ps = Scholarship::select('priorityStatus')->whereIn('priorityStatus',['Pregnant','PWD','Elderly'])->first();
+        if($ps != null){
+        $chr_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')
+        ->whereIn('priorityStatus',['Pregnant','PWD','Elderly']);
+        })->first();
+    }else{
+        $chr_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')->first();
+        })->first();
+    }
         $chr_serve = Cashier::where('status','Serving')->first();
-        $hal_reserve = Halal::where('status','Reserve')->first();
+        
+        $hal_reserve=[];
+       $ps = Scholarship::select('priorityStatus')->whereIn('priorityStatus',['Pregnant','PWD','Elderly'])->first();
+       if($ps != null){
+        $hal_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')
+        ->whereIn('priorityStatus',['Pregnant','PWD','Elderly']);
+        })->first();
+    }else{
+        $hal_reserve = Scholarship::where(function($query){
+        $query->where('status','Reserve')->first();
+        })->first();
+    }
         $hal_serve = Halal::where('status','Serving')->first();
+        
         return view('Queue.monitor')
         ->with ('chm_reserve', $chm_reserve)
         ->with ('chm_serve', $chm_serve)

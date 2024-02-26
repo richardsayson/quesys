@@ -26,7 +26,7 @@
               <form method="post" action="{{route('Queue.addtoque')}}">
                 @csrf
                 @method('post')
-                  <div class=" mb-2"><input class=" w-100" type="text" name="lastname" placeholder="Last Name"></div>
+                  <div class=" mb-2"><input class=" w-100" type="text"text-capitalize="active " name="lastname" placeholder="Last Name" autocapitaize="word"></div>
                   <div class=" mb-2"><input class="w-100" type="text" name="firstname" placeholder="First Name"></div>
                   <input class=" visually-hidden" type="text" name="status" value="Reserve">
                   <div class=" mb-2 ">

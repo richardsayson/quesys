@@ -25,3 +25,8 @@ Route::get('/Queue/lobby', function () {
 Route::get('/Queue/monitor',[QController::class, 'all_client'])->name('Queue.monitor');
 
 Route::post('/Queue/lobby', [QController::class, 'add_client'])->name('Queue.addtoque');
+
+
+Route::get('/Queue/scholar', function () {
+ return view ('Queue/scholar');   
+});
